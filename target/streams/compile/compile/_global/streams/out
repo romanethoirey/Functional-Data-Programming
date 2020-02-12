@@ -1,5 +1,6 @@
-[0m[[0m[33mwarn[0m] [0m[0m/Users/romane/Documents/Efrei/S8/Functional-Data-Programming/TP1.scala:40:52: match may not be exhaustive.[0m
-[0m[[0m[33mwarn[0m] [0m[0mIt would fail on the following input: List(_, _)[0m
-[0m[[0m[33mwarn[0m] [0m[0m	def encode(list: List[Char]): List[(Int, Char)] = list match {[0m
-[0m[[0m[33mwarn[0m] [0m[0m	                                                  ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/romane/Documents/Efrei/S8/Functional-Data-Programming/TP1.scala:30:59: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : x$1.type (with underlying type (Int, String))[0m
+[0m[[0m[31merror[0m] [0m[0m required: Nothing[0m
+[0m[[0m[31merror[0m] [0m[0m	println("foldLeft" + list.foldLeft(List())((acc, i) => i :: acc))[0m
+[0m[[0m[31merror[0m] [0m[0m	                                                         ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
