@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f3b25a80-2bb4-4bc0-8ef3-5e06e356c772" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1YiH9uKzctDOeDtk5rFSRECOrHF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../spark-lab-json 2" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f3b25a80-2bb4-4bc0-8ef3-5e06e356c772" name="Default Changelist" comment="" />
+      <created>1583418346406</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583418346406</updated>
+      <workItem from="1583418347662" duration="11000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="489" y="341" key="#com.intellij.framework.addSupport.AddSupportForSingleFrameworkDialog" timestamp="1583424774212">
+      <screen x="0" y="23" width="1440" height="790" />
+    </state>
+    <state x="489" y="341" key="#com.intellij.framework.addSupport.AddSupportForSingleFrameworkDialog/0.23.1440.790@0.23.1440.790" timestamp="1583424774212" />
+    <state x="586" y="327" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583424769849">
+      <screen x="0" y="23" width="1440" height="790" />
+    </state>
+    <state x="586" y="327" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.23.1440.790@0.23.1440.790" timestamp="1583424769849" />
+    <state x="427" y="252" key="com.intellij.ide.util.TipDialog" timestamp="1583425967317">
+      <screen x="0" y="23" width="1440" height="790" />
+    </state>
+    <state x="427" y="252" key="com.intellij.ide.util.TipDialog/0.23.1440.790@0.23.1440.790" timestamp="1583425967317" />
+  </component>
+</project>
