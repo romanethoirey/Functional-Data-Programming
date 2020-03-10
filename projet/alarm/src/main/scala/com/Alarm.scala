@@ -3,11 +3,11 @@ package com
 import scala.io.Source
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata, Callback}
 
-object DroneSimulator {
+object Alarm {
 
   import java.util.Properties
 
-  val TOPIC = "drone"
+  val TOPIC = "alarm"
 
   val  props = new Properties()
 
