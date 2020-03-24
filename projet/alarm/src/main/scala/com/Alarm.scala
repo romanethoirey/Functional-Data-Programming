@@ -25,9 +25,11 @@ object Alarm extends App {
 
   val inputStream = KafkaUtils.createDirectStream(ssc, PreferConsistent, Subscribe[String, String](Array("drone"), kafkaParams))
   val processedStream = inputStream
-    .flatMap(record => record.value.split(","))
+    .map(record => record.value.split(","))
+    .filter(record => record(5).equals("99"))
+    .map(record => record.mkString(","))
+    .print()
 
-  processedStream.print()
   ssc.start()
   ssc.awaitTermination()
 

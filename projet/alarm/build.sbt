@@ -1,4 +1,4 @@
-name := "spark-playground"
+name := "spark-alarm"
 
 version := "1.0"
 

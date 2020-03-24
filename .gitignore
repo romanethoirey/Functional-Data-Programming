@@ -28,3 +28,5 @@ build
 *.swp
 logs/
 ~*
+*.xml
+projet/.idea/workspace.xml
