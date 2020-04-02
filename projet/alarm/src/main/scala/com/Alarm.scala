@@ -1,36 +1,49 @@
-import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.spark._
-import org.apache.spark.streaming._
-import org.apache.spark.streaming.kafka010._
-import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
-import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
+import java.util.{Collections, Properties}
+import java.util.regex.Pattern
+import org.apache.kafka.clients.consumer.KafkaConsumer
+import scala.collection.JavaConverters._
 
 
-object Alarm extends App {
+object Alarm {
 
-  println("Program Started")
-
-  val conf = new SparkConf().setMaster("local[2]").setAppName("Alarm")
-
-  val kafkaParams = Map[String, Object](
-    "bootstrap.servers" -> "localhost:9092",
-    "key.deserializer" -> classOf[StringDeserializer],
-    "value.deserializer" -> classOf[StringDeserializer],
-    "group.id" -> "spark-playground-group",
-    "auto.offset.reset" -> "latest",
-    "enable.auto.commit" -> (false: java.lang.Boolean)
-  )
-  val ssc = new StreamingContext(conf, Seconds(10))
+  def main(args: Array[String]) : Unit = {
+    println("Program Started")
 
 
-  val inputStream = KafkaUtils.createDirectStream(ssc, PreferConsistent, Subscribe[String, String](Array("drone"), kafkaParams))
-  val processedStream = inputStream
-    .map(record => record.value.split(","))
-    .filter(record => record(5).equals("99"))
-    .map(record => record.mkString(","))
-    .print()
+    val props:Properties = new Properties()
+    props.put("group.id", "test")
+    props.put("bootstrap.servers","localhost:9092")
+    props.put("zookeeper.connect", "localhost:2181")
+    props.put("key.deserializer",
+      "org.apache.kafka.common.serialization.StringDeserializer")
+    props.put("value.deserializer",
+      "org.apache.kafka.common.serialization.StringDeserializer")
+    props.put("enable.auto.commit", "true")
+    props.put("auto.commit.interval.ms", "1000")
+    val consumer = new KafkaConsumer(props)
+    val topics = List("DRONE")
+    try {
+      consumer.subscribe(topics.asJava)
+      while (true) {
+        val records = consumer.poll(10)
 
-  ssc.start()
-  ssc.awaitTermination()
+        // We use a forEach loop to look for each record
+        for (record <- records.iterator().asScala) {
+
+          val values = record.value().asInstanceOf[String];
+          val codeError = values.split(",")(5);
+
+          if (codeError.equals("99")) {
+            println("Need human intervention - Beep beep");
+            println(values);
+          }
+        }
+      }
+    }catch{
+      case e:Exception => e.printStackTrace()
+    }finally {
+      consumer.close()
+    }
+  }
 
 }
