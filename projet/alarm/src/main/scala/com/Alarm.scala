@@ -11,7 +11,7 @@ object Alarm {
 
 
     val props:Properties = new Properties()
-    props.put("group.id", "test")
+    props.put("group.id", "alarm")
     props.put("bootstrap.servers","localhost:9092")
     props.put("zookeeper.connect", "localhost:2181")
     props.put("key.deserializer",
