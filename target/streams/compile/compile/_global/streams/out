@@ -1,6 +1,0 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/romane/Documents/Efrei/S8/Functional-Data-Programming/TP1.scala:30:59: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : x$1.type (with underlying type (Int, String))[0m
-[0m[[0m[31merror[0m] [0m[0m required: Nothing[0m
-[0m[[0m[31merror[0m] [0m[0m	println("foldLeft" + list.foldLeft(List())((acc, i) => i :: acc))[0m
-[0m[[0m[31merror[0m] [0m[0m	                                                         ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
