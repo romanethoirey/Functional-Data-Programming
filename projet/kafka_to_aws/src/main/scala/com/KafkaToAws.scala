@@ -11,6 +11,9 @@
  * with these strings locally, but *the keys must not be added to git*
  */
 
+import scala.collection.mutable.ListBuffer
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.AmazonClientException
@@ -23,12 +26,10 @@ import java.io.InputStreamReader
 import java.io.FileOutputStream
 import java.io.FileWriter
 import org.apache.commons.io.IOUtils 
-import org.apache.kafka.clients.consumer.ConsumerRecord
-import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.spark.streaming.kafka010._
-import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
-import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
-
+import java.util.{Collections, Properties}
+import java.util.regex.Pattern
+import org.apache.kafka.clients.consumer.KafkaConsumer
+import scala.collection.JavaConverters._
 
 
 /**
@@ -37,8 +38,21 @@ import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
  * - Read data from an AWS file
  */
 object KafkaToAws {
-  val BUCKET_NAME = ""
-  val FILE_NAME = "dummyfile5.txt"
+  val BUCKET_NAME = "fdpprojectcreatingnewbucket"
+  val props:Properties = new Properties()
+
+  def setKafkaProps(servers: String) : Unit = {
+    props.put("group.id", "test")
+    props.put("bootstrap.servers", servers);
+    props.put("zookeeper.connect", "localhost:2181")
+    props.put("key.deserializer",
+      "org.apache.kafka.common.serialization.StringDeserializer")
+    props.put("value.deserializer",
+      "org.apache.kafka.common.serialization.StringDeserializer")
+    props.put("enable.auto.commit", "true")
+    props.put("auto.commit.interval.ms", "1000")
+  }
+
 
   def upload(client: AmazonS3Client, content:String) : Unit = {
 
@@ -49,7 +63,9 @@ object KafkaToAws {
       val bw = new BufferedWriter(new FileWriter(scratchFile))
       bw.write(content)
       bw.close()
-      val putObjectRequest = new PutObjectRequest(BUCKET_NAME, FILE_NAME, scratchFile);
+      val r = scala.util.Random
+      val fileName = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH_mm").format(LocalDateTime.now) + "_seed_" + r.nextInt(100000)
+      val putObjectRequest = new PutObjectRequest(BUCKET_NAME, fileName, scratchFile);
       val putObjectResult = client.putObject(putObjectRequest);
     
     } finally {
@@ -60,54 +76,46 @@ object KafkaToAws {
 
   }
 
-  def getLines() : List[String] = {
-
-    val kafkaParams = Map[String, Object](
-      "bootstrap.servers" -> "localhost:9092,anotherhost:9092",
-      "key.deserializer" -> classOf[StringDeserializer],
-      "value.deserializer" -> classOf[StringDeserializer],
-      "group.id" -> "use_a_separate_group_id_for_each_stream",
-      "auto.offset.reset" -> "latest",
-      "enable.auto.commit" -> (false: java.lang.Boolean)
-    )
-    
-    val topics = Array("drone")
-    val stream = KafkaUtils.createDirectStream[String, String](
-      streamingContext,
-      PreferConsistent,
-      Subscribe[String, String](topics, kafkaParams)
-    )
-
-    stream.foreachRDD { rdd =>
-      // What is in this rdd variable?
-      println(rdd)
-      val offsetRanges = rdd.asInstanceOf[HasOffsetRanges].offsetRanges
-      //rdd.foreachPartition { iter =>
-      //  val o: OffsetRange = offsetRanges(TaskContext.get.partitionId)
-      //  println(s"${o.topic} ${o.partition} ${o.fromOffset} ${o.untilOffset}")
-      }
-    }
-
-  }
 
   def main(args: Array[String]) : Unit = {
+
     println(args.length)
-    if (args.length != 2) {
-      println("Usage: ./AwsExample AWS_ACCESS_KEY AWS_SECRET_KEY")
+    if (args.length < 3) {
+      println("Usage: ./AwsExample AWS_ACCESS_KEY AWS_SECRET_KEY server [server2 ...]")
     } else {
       val AWS_ACCESS_KEY = args(0)
       val AWS_SECRET_KEY =  args(1)
+      val servers = args.drop(2).map(_ + ":9092").mkString(",")
+      setKafkaProps(servers)
+
       try {
         val awsCredentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY)
         println("Basic creds setup")
         val amazonS3Client = new AmazonS3Client(awsCredentials)
         println("Client setup")
+        val consumer = new KafkaConsumer(props)
+        val topics = List("DRONE")
+        try {
+          consumer.subscribe(topics.asJava);
+          val buffer = ListBuffer[String]();
+          while (true) {
+            val records = consumer.poll(10)
 
-        val lines = getLines()
+            // We use a forEach loop to look for each record
+            val intermed = records.iterator().asScala;
+            val next = intermed.map(x => x.value().asInstanceOf[String]);
+            buffer ++= next.toList;
 
-
-
-        //upload(amazonS3Client, lines.mkString("\n"))
+            if (buffer.length >= 100000) {
+              upload(amazonS3Client, buffer.toList.mkString("\n"));
+              buffer.clear();
+            }
+          }
+        }catch{
+          case e:Exception => e.printStackTrace()
+        }finally {
+          consumer.close()
+        }
 
         
       } catch {

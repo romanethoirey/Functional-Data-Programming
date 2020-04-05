@@ -7,7 +7,7 @@ object DroneSimulator {
 
   import java.util.Properties
 
-  val TOPIC = "drone"
+  val TOPIC = "DRONE"
 
   val  props = new Properties()
 
