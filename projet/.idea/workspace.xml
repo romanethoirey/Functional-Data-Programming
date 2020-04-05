@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3b25a80-2bb4-4bc0-8ef3-5e06e356c772" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/controller.log" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/controller.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/kafkaServer-gc.log.0.current" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/kafkaServer-gc.log.0.current" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/log-cleaner.log" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/log-cleaner.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/server.log" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/server.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/state-change.log" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/state-change.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/zookeeper-gc.log.0.current" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka_2.12-2.4.0/logs/zookeeper-gc.log.0.current" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alarm/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/alarm/build.sbt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alarm/src/main/scala/com/Alarm.scala" beforeDir="false" afterPath="$PROJECT_DIR$/alarm/src/main/scala/com/Alarm.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
