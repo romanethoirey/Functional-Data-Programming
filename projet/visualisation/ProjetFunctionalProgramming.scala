@@ -3,9 +3,9 @@ Importing the file from S3 bucket and create data frames
 
 // COMMAND ----------
 
-val AccessKey = "AKIAWXKL5AG6VEWNCU6P"
+val AccessKey = "********"
 // Encode the Secret Key as that can contain "/"
-val SecretKey = "Qe0SvR4oIS1+Yw69oMP0TH5N0P6uxpdbc3mbw6AG".replace("/", "%2F")
+val SecretKey = "*******************".replace("/", "%2F")
 val AwsBucketName = "fdpprojectcreatingnewbucket"
 val MountName = "tst2"
 
